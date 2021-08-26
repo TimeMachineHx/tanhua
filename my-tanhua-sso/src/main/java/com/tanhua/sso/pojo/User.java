@@ -1,0 +1,24 @@
+package com.tanhua.sso.pojo;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @program: my-tanhua
+ * @description: 用户基本信息
+ * @author: HongXin
+ * @create: 2021-08-26 19:15
+ */
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends BasePojo {
+    private Long id;
+    private String mobile; //手机号
+
+    @JsonIgnore
+    private String password; //密码，json序列化时忽略
+}
