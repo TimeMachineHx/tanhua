@@ -9,5 +9,6 @@ package com.tanhua.sso.vo;
 
 
 public class RedisKey {
-    public static final String code = "sso:userlogin:";
+    public static final String CODE = "sso:userlogin:";
+    public static final String PHONE_CODE = "sso:loginService:";
 }

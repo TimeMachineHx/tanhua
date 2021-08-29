@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tanhua.sso.mapper.UserMapper;
 import com.tanhua.sso.pojo.User;
 import com.tanhua.sso.vo.RedisKey;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: my-tanhua
@@ -25,6 +26,7 @@ import java.util.Map;
  */
 
 @Service
+@Slf4j
 public class LoginService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
@@ -40,7 +42,7 @@ public class LoginService {
         /**
          * 校验验证码
          */
-        String redisKey = RedisKey.code + phone;
+        String redisKey = RedisKey.CODE + phone;
         String code = redisTemplate.opsForValue().get(redisKey);
         if (!StringUtils.equals(verificationCode, code)) {
             return null;
@@ -73,5 +75,42 @@ public class LoginService {
         hashMap.put("token", compact);
         hashMap.put("isNew", isNew);
         return hashMap;
+    }
+
+    /**
+     * 破解token
+     *
+     * @param token
+     * @return
+     */
+    public User queryUserByToken(String token) {
+        try {
+            Map<String, Object> body = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+            User user = new User();
+            user.setId(Long.valueOf(body.get("id").toString()));
+            //需要返回user对象中的mobile，需要查询数据库获取到mobile数据
+            //如果每次都查询数据库，必然会导致性能问题，需要对用户的手机号进行缓存操作
+            //数据缓存时，需要设置过期时间，过期时间要与token的时间一致
+            //如果用户修改了手机号，需要同步修改redis中的数据
+            String redisKey = RedisKey.PHONE_CODE + user.getId();
+            if (Boolean.TRUE.equals(redisTemplate.hasKey(redisKey))) {
+                String phone = redisTemplate.opsForValue().get(redisKey);
+                user.setMobile(phone);
+            } else {
+                User user1 = userMapper.selectById(user.getId());
+                user.setMobile(user1.getMobile());
+                Long time = Long.valueOf(body.get("exp").toString()) * 1000 - System.currentTimeMillis();
+                redisTemplate.opsForValue().set(redisKey, user.getMobile(), time, TimeUnit.MILLISECONDS);
+            }
+            return user;
+        } catch (ExpiredJwtException e) {
+            log.info("token已过期");
+        } catch (Exception e) {
+            log.error("token不合法！ token = "+ token, e);
+        }
+        return null;
     }
 }

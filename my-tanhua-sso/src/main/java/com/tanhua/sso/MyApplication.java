@@ -14,7 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @MapperScan("com.tanhua.sso.mapper")
 @SpringBootApplication
-@PropertySource("classpath:application.properties")
+@PropertySource({"classpath:application.properties"})
 public class MyApplication {
     public static void main(String[] args) {
         SpringApplication.run(MyApplication.class,args);

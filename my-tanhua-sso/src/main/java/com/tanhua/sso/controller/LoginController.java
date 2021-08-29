@@ -1,15 +1,13 @@
 package com.tanhua.sso.controller;
 
+import com.tanhua.sso.pojo.User;
 import com.tanhua.sso.service.LoginService;
 import com.tanhua.sso.vo.ErrorResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -37,5 +35,16 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         }
         return ResponseEntity.status(HttpStatus.OK).body(stringObjectMap);
+    }
+
+    /**
+     * 校验token，根据token查询用户数据
+     *
+     * @param token
+     * @return
+     */
+    @GetMapping("{token}")
+    public User queryUserByToken(@PathVariable("token") String token) {
+        return this.loginService.queryUserByToken(token);
     }
 }

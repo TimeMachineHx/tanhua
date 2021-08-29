@@ -29,7 +29,7 @@ public class SmsService {
         if (!matches){
             return ErrorResult.builder().errCode("000003").errMessage("手机号码格式不对").build();
         }
-        String redisKey = RedisKey.code + phone;
+        String redisKey = RedisKey.CODE + phone;
         //先判断该手机号发送的验证码是否还未失效
         if (redisTemplate.hasKey(redisKey)) {
             String msg = "上一次发送的验证码还未失效！";
