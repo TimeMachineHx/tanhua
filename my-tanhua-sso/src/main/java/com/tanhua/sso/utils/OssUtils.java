@@ -1,10 +1,9 @@
 package com.tanhua.sso.utils;
 
-import com.aliyun.oss.ClientException;
+
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
-import com.tanhua.sso.vo.ErrorResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;

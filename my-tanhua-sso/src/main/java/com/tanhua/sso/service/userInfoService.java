@@ -1,14 +1,11 @@
 package com.tanhua.sso.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.tanhua.sso.enums.SexEnum;
-import com.tanhua.sso.mapper.UserInfoMapper;
-import com.tanhua.sso.pojo.User;
-import com.tanhua.sso.pojo.UserInfo;
-import com.tanhua.sso.service.LoginService;
-import com.tanhua.sso.service.PicUploadService;
+import com.tanhua.common.enums.SexEnum;
+import com.tanhua.common.mapper.UserInfoMapper;
+import com.tanhua.common.pojo.User;
+import com.tanhua.common.pojo.UserInfo;
 import com.tanhua.sso.utils.FaceEngineUtils;
-import com.tanhua.sso.utils.OssUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

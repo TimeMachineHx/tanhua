@@ -6,6 +6,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>my-tanhua-sso</module>
+        <module>my-tanhua-server</module>
+        <module>my-tanhua-dubbo</module>
+        <module>my-tanhua-dubbo/my-tanhua-dubbo-interface</module>
+        <module>my-tanhua-dubbo/my-tanhua-dubbo-service</module>
+        <module>my-tanhua-common</module>
     </modules>
 
     <parent>

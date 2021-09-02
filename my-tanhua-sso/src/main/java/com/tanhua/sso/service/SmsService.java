@@ -3,7 +3,6 @@ package com.tanhua.sso.service;
 import com.tanhua.sso.vo.ErrorResult;
 import com.tanhua.sso.vo.RedisKey;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

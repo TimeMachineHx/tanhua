@@ -1,6 +1,6 @@
-package com.tanhua.sso.pojo;
+package com.tanhua.common.pojo;
 
-import com.tanhua.sso.enums.SexEnum;
+import com.tanhua.common.enums.SexEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +30,7 @@ public class UserInfo extends BasePojo{
     private String industry; //行业
     private String income; //收入
     private String marriage; //婚姻状态
+
 
 
 }

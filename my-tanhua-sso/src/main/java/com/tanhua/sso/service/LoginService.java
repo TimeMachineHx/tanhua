@@ -1,8 +1,8 @@
 package com.tanhua.sso.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.tanhua.sso.mapper.UserMapper;
-import com.tanhua.sso.pojo.User;
+import com.tanhua.common.mapper.UserMapper;
+import com.tanhua.common.pojo.User;
 import com.tanhua.sso.vo.RedisKey;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
@@ -53,16 +53,15 @@ public class LoginService {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mobile", phone);
         User user = userMapper.selectOne(queryWrapper);
-        User user1 = new User();
         if (null == user) {
-            user1.setMobile(phone);
-            user1.setPassword(DigestUtils.md5Hex("123456"));
-            userMapper.insert(user1);
+            user.setMobile(phone);
+            user.setPassword(DigestUtils.md5Hex("123456"));
+            userMapper.insert(user);
             isNew = true;
         }
         //生成token
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user1.getId());
+        Map<String, Object> claims = new HashMap<String, Object>();
+        claims.put("id", user.getId());
         String compact = Jwts.builder()
                 //payload，存放数据的位置，不能放置敏感数据，如：密码等
                 .setClaims(claims)
@@ -101,15 +100,16 @@ public class LoginService {
                 user.setMobile(phone);
             } else {
                 User user1 = userMapper.selectById(user.getId());
-                user.setMobile(user1.getMobile());
-                Long time = Long.valueOf(body.get("exp").toString()) * 1000 - System.currentTimeMillis();
-                redisTemplate.opsForValue().set(redisKey, user.getMobile(), time, TimeUnit.MILLISECONDS);
+                    user.setMobile(user1.getMobile());
+                    Long time = Long.valueOf(body.get("exp").toString()) * 1000 - System.currentTimeMillis();
+                    redisTemplate.opsForValue().set(redisKey, user.getMobile(), time, TimeUnit.MILLISECONDS);
+
             }
             return user;
         } catch (ExpiredJwtException e) {
             log.info("token已过期");
         } catch (Exception e) {
-            log.error("token不合法！ token = "+ token, e);
+            log.error("token不合法！ token = "+ token + e);
         }
         return null;
     }

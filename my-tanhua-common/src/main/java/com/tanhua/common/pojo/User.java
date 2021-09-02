@@ -1,4 +1,4 @@
-package com.tanhua.sso.pojo;
+package com.tanhua.common.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

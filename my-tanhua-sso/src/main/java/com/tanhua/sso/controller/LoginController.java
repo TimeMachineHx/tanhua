@@ -1,6 +1,6 @@
 package com.tanhua.sso.controller;
 
-import com.tanhua.sso.pojo.User;
+import com.tanhua.common.pojo.User;
 import com.tanhua.sso.service.LoginService;
 import com.tanhua.sso.vo.ErrorResult;
 import lombok.extern.slf4j.Slf4j;

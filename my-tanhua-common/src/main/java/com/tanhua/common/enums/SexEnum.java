@@ -1,7 +1,7 @@
-package com.tanhua.sso.enums;
+package com.tanhua.common.enums;
+
 
 import com.baomidou.mybatisplus.core.enums.IEnum;
-
 
 /**
  * @program: my-tanhua
