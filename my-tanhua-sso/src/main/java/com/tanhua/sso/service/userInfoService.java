@@ -5,6 +5,7 @@ import com.tanhua.common.enums.SexEnum;
 import com.tanhua.common.mapper.UserInfoMapper;
 import com.tanhua.common.pojo.User;
 import com.tanhua.common.pojo.UserInfo;
+import com.tanhua.common.service.PicUploadService;
 import com.tanhua.sso.utils.FaceEngineUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

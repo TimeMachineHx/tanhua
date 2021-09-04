@@ -6,6 +6,7 @@ import com.tanhua.common.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,5 +31,11 @@ public class userInfoService {
 
     public List<UserInfo> queryUserInfoList(QueryWrapper<UserInfo> queryWrapper) {
         return userInfoMapper.selectList(queryWrapper);
+    }
+
+    public List<UserInfo> queryUserInfoByUserIdList(Collection<?> userId) {
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("user_id", userId);
+        return queryUserInfoList(queryWrapper);
     }
 }

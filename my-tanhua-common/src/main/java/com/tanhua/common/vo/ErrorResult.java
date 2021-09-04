@@ -1,4 +1,4 @@
-package com.tanhua.sso.vo;
+package com.tanhua.common.vo;
 
 import lombok.Builder;
 import lombok.Data;

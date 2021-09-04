@@ -1,6 +1,6 @@
 package com.tanhua.sso.service;
 
-import com.tanhua.sso.vo.ErrorResult;
+import com.tanhua.common.vo.ErrorResult;
 import com.tanhua.sso.vo.RedisKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

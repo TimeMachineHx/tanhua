@@ -1,7 +1,7 @@
-package com.tanhua.sso.service;
+package com.tanhua.common.service;
 
-import com.tanhua.sso.utils.OssUtils;
-import com.tanhua.sso.vo.ErrorResult;
+import com.tanhua.common.vo.ErrorResult;
+import com.tanhua.common.vo.OssUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @program: my-tanhua

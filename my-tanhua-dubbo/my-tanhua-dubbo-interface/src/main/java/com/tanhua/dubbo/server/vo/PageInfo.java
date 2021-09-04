@@ -32,4 +32,7 @@ public class PageInfo<T> implements java.io.Serializable {
      */
     private List<T> records = Collections.emptyList();
 
+    public PageInfo() {
+
+    }
 }

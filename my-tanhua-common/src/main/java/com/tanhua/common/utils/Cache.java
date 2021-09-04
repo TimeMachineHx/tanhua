@@ -1,4 +1,4 @@
-package com.tanhua.server.utils;
+package com.tanhua.common.utils;
 
 import java.lang.annotation.*;
 

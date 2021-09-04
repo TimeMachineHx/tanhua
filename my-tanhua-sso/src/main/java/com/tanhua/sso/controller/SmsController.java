@@ -1,7 +1,7 @@
 package com.tanhua.sso.controller;
 
 import com.tanhua.sso.service.SmsService;
-import com.tanhua.sso.vo.ErrorResult;
+import com.tanhua.common.vo.ErrorResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

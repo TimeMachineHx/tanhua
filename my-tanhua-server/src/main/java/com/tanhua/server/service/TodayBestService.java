@@ -4,6 +4,7 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tanhua.common.pojo.User;
 import com.tanhua.common.pojo.UserInfo;
+import com.tanhua.common.utils.UserThreadLocal;
 import com.tanhua.dubbo.server.pojo.RecommendUser;
 import com.tanhua.dubbo.server.vo.PageInfo;
 import com.tanhua.server.dto.RecommendUserQueryParam;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.lang.annotation.Target;
 import java.util.*;
 
 /**
@@ -38,13 +38,15 @@ public class TodayBestService {
     @Value("${tanhua.sso.default.user}")
     private Long defaultUser;
 
-    public TodayBest queryTodayBest(String token) {
-        //校验token。通过sso接口进行校验
-        User user = userService.queryUserByToken(token);
-        if (null == user) {
-            //token过期或非法
-            return null;
-        }
+    public TodayBest queryTodayBest() {
+//        //校验token。通过sso接口进行校验
+//        User user = userService.queryUserByToken(token);
+//        if (null == user) {
+//            //token过期或非法
+//            return null;
+//        }
+        //查询用户
+        User user = UserThreadLocal.get();
         //查出推荐用户
         TodayBest todayBest = recommendUserService.queryTodayBest(user.getId());
         //判断是否存在推荐用户，没有的话，给一个默认用户
@@ -66,15 +68,16 @@ public class TodayBestService {
     /**
      * 查询推荐用户
      *
-     * @param token
+     *
      * @param queryParam
      * @return
      */
-    public PageResult queryRecommendation(String token, RecommendUserQueryParam queryParam) {
-        User user = userService.queryUserByToken(token);
-        if (null == user) {
-            return null;
-        }
+    public PageResult queryRecommendation(RecommendUserQueryParam queryParam) {
+//        User user = userService.queryUserByToken(token);
+//        if (null == user) {
+//            return null;
+//        }
+        User user = UserThreadLocal.get();
         PageResult pageResult = new PageResult();
         pageResult.setPage(queryParam.getPage());
         pageResult.setPagesize(queryParam.getPagesize());
@@ -95,18 +98,18 @@ public class TodayBestService {
         //用户id参数
         queryWrapper.in("user_id", userIds);
 
-        if (StringUtils.isNotEmpty(queryParam.getGender())) {
-//            queryWrapper.eq("sex", StringUtils.equals(queryParam.getGender(), "man") ? 1 : 2);
-        }
-        if (StringUtils.isNotEmpty(queryParam.getCity())) {
-            //需要城市参数查询
-//            queryWrapper.like("city", queryParam.getCity());
-        }
-
-        if (queryParam.getAge() != null) {
-            //设置年龄参数，条件：小于等于
-//            queryWrapper.le("age", queryParam.getAge());
-        }
+//        if (StringUtils.isNotEmpty(queryParam.getGender())) {
+////            queryWrapper.eq("sex", StringUtils.equals(queryParam.getGender(), "man") ? 1 : 2);
+//        }
+//        if (StringUtils.isNotEmpty(queryParam.getCity())) {
+//            //需要城市参数查询
+////            queryWrapper.like("city", queryParam.getCity());
+//        }
+//
+//        if (queryParam.getAge() != null) {
+//            //设置年龄参数，条件：小于等于
+////            queryWrapper.le("age", queryParam.getAge());
+//        }
 
         List<UserInfo> userInfoList = this.userInfoService.queryUserInfoList(queryWrapper);
         if (CollectionUtils.isEmpty(userInfoList)) {

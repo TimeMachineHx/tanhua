@@ -1,6 +1,6 @@
 package com.tanhua.sso.controller;
 
-import com.tanhua.sso.service.PicUploadService;
+import com.tanhua.common.service.PicUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

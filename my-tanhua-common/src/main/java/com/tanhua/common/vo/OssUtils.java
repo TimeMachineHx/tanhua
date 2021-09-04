@@ -1,4 +1,4 @@
-package com.tanhua.sso.utils;
+package com.tanhua.common.vo;
 
 
 import com.aliyun.oss.OSS;
